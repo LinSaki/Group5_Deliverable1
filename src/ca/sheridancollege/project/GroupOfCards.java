@@ -5,25 +5,30 @@
  */
 package ca.sheridancollege.project;
 
+import ca.sheridancollege.project.Card.Suit;
+import ca.sheridancollege.project.Card.Value;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * A concrete class that represents any grouping of cards for a Game. HINT, you might want to subclass this more than
- * once. The group of cards has a maximum size attribute which is flexible for reuse.
+ * once.
  *
  * @author dancye
- * @author Paul Bonenfant Jan 2020
  * @modified by Kaitlin Saqui, June 2023
  */
 public class GroupOfCards {
 
     //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
-    private int size;//the size of the grouping
+    private ArrayList<BlackJackCard> cards;
 
-    public GroupOfCards(int size) {
-        this.size = size;
+    /**
+     * 1-arg constructor
+     *@param size
+     */
+    public GroupOfCards() {
+        cards = new ArrayList<BlackJackCard>();
     }
 
     /**
@@ -31,26 +36,61 @@ public class GroupOfCards {
      *
      * @return the group of cards.
      */
-    public ArrayList<Card> getCards() {
+    public ArrayList<BlackJackCard> getCards() {
         return cards;
     }
 
+    /**
+     * A method that will shuffle the ArrayList of cards at random
+     */    
     public void shuffle() {
-        Collections.shuffle(cards);
+        Collections.shuffle(cards, new Random());
+    }
+    
+    /**
+     * A method to create a full deck of 52 cards
+     */
+    public void generateFullDeck() {
+        for (Suit aSuit : Suit.values()){
+            for (Value aValue : Value.values()) {
+                this.cards.add(new BlackJackCard(aSuit, aValue));
+            }
+        }
+    }
+    
+    /**
+     * @param card from BlackJackCard class
+     */
+    public void addCard(BlackJackCard card) {
+        cards.add(card);
+    }
+    
+     /**
+     * Method for a Player to take a card from the existing deck
+     * @return the BlackJackCard to Player
+     */
+    public BlackJackCard takingCardFromDeck() {
+        BlackJackCard cardTaken = cards.get(0); // takes card at the top of the deck and saves a copy
+        cards.remove(0); // remove the card copied from the GroupOfCards
+        return cardTaken;
+    }
+    
+     /**
+     * Method to clear out deck of cards
+     */
+    public void emptyCards() {
+        cards.clear();
     }
 
     /**
-     * @return the size of the group of cards
+     * override toString()
      */
-    public int getSize() {
-        return size;
+    @Override
+    public String toString(){
+        String groupCards ="";
+        for(BlackJackCard aCard: cards) {
+            groupCards += aCard + "\n";
+        }
+        return groupCards;
     }
-
-    /**
-     * @param size the max size for the group of cards
-     */
-    public void setSize(int size) {
-        this.size = size;
-    }
-
 }//end class

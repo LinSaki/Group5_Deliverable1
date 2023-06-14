@@ -10,9 +10,8 @@ import java.util.ArrayList;
 /**
  * The class that models your game. You should create a more specific child of this class and instantiate the methods
  * given.
- *
+ * This class is the parent of the specific class BlackJackGame()
  * @author dancye
- * @author Paul Bonenfant Jan 2020
  * @modified by Kaitlin Saqui, June 2023
  */
 public abstract class Game {
@@ -20,9 +19,13 @@ public abstract class Game {
     private final String name;//the title of the game
     private ArrayList<Player> players;// the players of the game
 
-    public Game(String name) {
-        this.name = name;
-        players = new ArrayList();
+       /**
+     * 1 argument constructor
+     * @param gameName
+     */
+    public Game(String gameName) {
+        name = gameName;
+        players = new ArrayList<Player>();
     }
 
     /**
@@ -53,7 +56,9 @@ public abstract class Game {
 
     /**
      * When the game is over, use this method to declare and display a winning player.
+     * @param player
+     * @return statement of winner
      */
-    public abstract void declareWinner();
+    public abstract String declareWinner(Player player);
 
 }//end class

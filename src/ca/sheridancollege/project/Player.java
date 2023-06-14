@@ -7,22 +7,25 @@ package ca.sheridancollege.project;
 
 /**
  * A class that models each Player in the game. Players have an identifier, which should be unique.
- *
+ * Each player holds a unique set of cards every time they play a game.
+ * A parent class of the Dealer() and UserPlayer()
  * @author dancye
- * @author Paul Bonenfant Jan 2020
  * @modified by Kaitlin Saqui, June 2023
  */
 public abstract class Player {
 
     private String name; //the unique name for this player
+    private Hand hand; //uniqe hand of cards a player holds
 
     /**
-     * A constructor that allows you to set the player's unique ID
+     * A 2-arg constructor that allows you to set the player's unique ID
      *
      * @param name the unique ID to assign to this player.
+     * @param hand
      */
-    public Player(String name) {
+    public Player(String name, Hand hand) {
         this.name = name;
+        this.hand = hand;
     }
 
     /**
@@ -35,16 +38,37 @@ public abstract class Player {
     /**
      * Ensure that the playerID is unique
      *
-     * @param name the player name to set
+     * @param userName the player name to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String userName) {
+        name = userName;
+    }
+    
+    /**
+     * @return the hand
+     */
+    public Hand getHand() {
+        return hand;
     }
 
     /**
-     * The method to be overridden when you subclass the Player class with your specific type of Player and filled in
-     * with logic to play your game.
+     * @param hand the hand to set
      */
-    public abstract void play();
+    public void setHand(Hand hand) {
+        this.hand = hand;
+    }
+    
+    /**
+     * @return true if Player has a value of 21 in their hand of cards
+     */
+    public boolean isBlackJack() {
+        return this.getHand().valueOfHand() == 21; // automatic winner!
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("%s has this hand of cards:\n%sWith a value of: %d\n", this.name, this.hand,
+                this.hand.valueOfHand());
+    }
 
 }
