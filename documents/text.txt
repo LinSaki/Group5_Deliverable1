@@ -1,1 +1,0 @@
-documents folder will be used to store text files, word documents, pdfs, etc.
