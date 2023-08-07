@@ -14,15 +14,21 @@ import java.util.Collections;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @modified by:ManpreetKaur:991680973 date 5th August,2023.
  */
 public class GroupOfCards {
 
     //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
+    private ArrayList<HandCard> cards;
     private int size;//the size of the grouping
+    
+    
 
-    public GroupOfCards(int size) {
+    public GroupOfCards(int size) 
+    {
         this.size = size;
+        this.cards= new ArrayList<>();
+        
     }
 
     /**
@@ -30,12 +36,15 @@ public class GroupOfCards {
      *
      * @return the group of cards.
      */
-    public ArrayList<Card> getCards() {
+    public ArrayList<HandCard> getCards() {
         return cards;
     }
-
-    public void shuffle() {
+    
+    
+    public ArrayList<HandCard> shuffle() 
+    {
         Collections.shuffle(cards);
+        return cards;
     }
 
     /**
@@ -50,6 +59,20 @@ public class GroupOfCards {
      */
     public void setSize(int size) {
         this.size = size;
+    }
+    
+    
+    public ArrayList<String> String()
+    {
+        ArrayList <String> stringRepresentationOfCards= new ArrayList<>();
+        for (int i = 1; i <= this.size ; i ++)
+        {
+          for( HandCard card: cards)
+          {
+            stringRepresentationOfCards.add(card.toString());
+          }
+        }
+        return stringRepresentationOfCards;
     }
 
 }//end class

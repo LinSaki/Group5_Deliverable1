@@ -10,6 +10,7 @@ package ca.sheridancollege.project;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @modified by:ManpreetKaur:991680973 date 5th August,2023.
  */
 public abstract class Player {
 
