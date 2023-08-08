@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Each Player's (UserPlayer and Dealer) unique hand of cards
- * @author saquika
+ * @author Kaitlin Saqui, August 2023
  */
 public class Hand {
     private ArrayList<BlackJackCard> hand;

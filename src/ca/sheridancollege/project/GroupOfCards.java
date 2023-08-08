@@ -5,8 +5,8 @@
  */
 package ca.sheridancollege.project;
 
-import ca.sheridancollege.project.Card.Suit;
-import ca.sheridancollege.project.Card.Value;
+import ca.sheridancollege.project.BlackJackCard.Suit;
+import ca.sheridancollege.project.BlackJackCard.Value;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -16,7 +16,7 @@ import java.util.Random;
  * once.
  *
  * @author dancye
- * @modified by Kaitlin Saqui, June 2023
+ * @modified by Kaitlin Saqui, August 2023
  */
 public class GroupOfCards {
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * given.
  * This class is the parent of the specific class BlackJackGame()
  * @author dancye
- * @modified by Kaitlin Saqui, June 2023
+ * @modified by Kaitlin Saqui, August 2023
  */
 public abstract class Game {
 

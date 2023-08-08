@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Child class of Player, a UserPlayer decides how much to bet and whether they will hit or stand
- * @author saquika
+ * @author Kaitlin Saqui, August 2023
  */
 public class UserPlayer extends Player{
     // data members
@@ -81,6 +81,13 @@ public class UserPlayer extends Player{
                     break;
             }
         }
+    }
+    
+     /**
+     * @return true if UserPlayer has a value of 21 in their hand of cards
+     */
+    public boolean isBlackJack() {
+        return this.getHand().valueOfHand() == 21; // automatic winner!
     }
     
 

@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 /**
  * Child class of abstract parent class Game
- * @author saquika June 2023
+ * @author Kaitlin Saqui, August 2023
  */
 public class BlackJackGame extends Game{ // child of Game class
     private GroupOfCards deck; 
     private GroupOfCards deckDiscard; 
     private UserPlayer player;
-    private Dealer dealer;
+    private UserPlayer dealer;
     private Hand playerHolds;
     private Hand dealerHolds;
     Scanner input = new Scanner(System.in);
@@ -29,7 +29,7 @@ public BlackJackGame(String gameName) {
     System.out.println("What is your username?");
     String userName = input.nextLine();
     player = new UserPlayer(userName, playerHolds);
-    dealer = new Dealer("Dealer", dealerHolds); // assigns dealer object name Dealer
+    dealer = new UserPlayer("Dealer", dealerHolds); // assigns dealer object name Dealer
     System.out.println(player.getName() + " you will be against the " + dealer.getName());
     players.add(player);
     players.add(dealer);
@@ -59,7 +59,9 @@ public void play() {
     dealerHolds.pickCard(deck);
     playerHolds.pickCard(deck);
     playerHolds.pickCard(deck);
-    System.out.println(dealer.getFirstHand() + "\n" + player);
+    System.out.printf("\n%s has this hand of cards:\n%s\nWith one card face down.\n\n%s", dealer.getName(),
+                dealer.getHand().grabCard(0), player);
+    
     
     // what if a Player picks a value of 21 in their hands right away
     if(dealer.isBlackJack()){
@@ -87,6 +89,7 @@ public void play() {
     
     // If no BlackJack, ask player if they'd like to hit or stand
     player.hitOrStand(deck, deckDiscard);
+    
     if (playerHolds.valueOfHand() > 21){
         System.out.println("You take home " + player.getUserMoney());
         playAgain();
@@ -99,32 +102,31 @@ public void play() {
     else{
         System.out.println("Dealers turn\n"); //Dealers turn
         do {
-       if (dealerHolds.valueOfHand() < 17){
+        if (dealerHolds.valueOfHand() < 17){
            System.out.println("Dealer picks up a card.");
            dealerHolds.pickCard(deck);
-       }
-       else{
+        }
+        else{
            System.out.println("Dealer holds.");
-           whoWon(userBet);
-       }
-       whoWon(userBet);
+        }
        }while(dealerHolds.valueOfHand() <17);
+       whoWon(userBet);
     }
     
-    dealerHolds.emptyHand(deck);
-    playerHolds.emptyHand(deck);
+    //dealerHolds.emptyHand(deck);
+    //playerHolds.emptyHand(deck);
 }
     
 
     /**
-     * Method to determine the winner
+     * Method to determine the winner and determine winning amount
      * @param userBet
      */ 
     public void whoWon(double userBet){
     if(dealerHolds.valueOfHand() > 21){
         System.out.println(dealer);
         System.out.println("Dealer BUSTS. " + this.declareWinner(player));
-        player.setUserMoney((userBet * 1.5) + player.getUserMoney());
+        player.setUserMoney((userBet * 2) + player.getUserMoney()); // Dealer busts, players receive twice their bets
         System.out.println("You take home " + player.getUserMoney());
         playAgain();
     }
@@ -137,7 +139,7 @@ public void play() {
     else if(playerHolds.valueOfHand() > dealerHolds.valueOfHand()){
         System.out.println(dealer);
         System.out.println(this.declareWinner(player) + " YOU WON!");
-        player.setUserMoney((userBet * 1.5) + player.getUserMoney());
+        player.setUserMoney((userBet * 2) + player.getUserMoney()); // Player receives twice their bet
         System.out.println("You take home " + player.getUserMoney());
         playAgain();
     }

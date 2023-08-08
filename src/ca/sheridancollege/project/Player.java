@@ -10,7 +10,7 @@ package ca.sheridancollege.project;
  * Each player holds a unique set of cards every time they play a game.
  * A parent class of the Dealer() and UserPlayer()
  * @author dancye
- * @modified by Kaitlin Saqui, June 2023
+ * @modified by Kaitlin Saqui, August 2023
  */
 public abstract class Player {
 
@@ -57,13 +57,7 @@ public abstract class Player {
     public void setHand(Hand hand) {
         this.hand = hand;
     }
-    
-    /**
-     * @return true if Player has a value of 21 in their hand of cards
-     */
-    public boolean isBlackJack() {
-        return this.getHand().valueOfHand() == 21; // automatic winner!
-    }
+   
     
     @Override
     public String toString(){
