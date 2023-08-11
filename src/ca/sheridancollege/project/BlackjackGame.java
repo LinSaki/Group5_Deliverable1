@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 13435
- * @modified by:ManpreetKaur:991680973 date 5th August,2023.
+ * @author by:ManpreetKaur:991680973 date 5th August,2023
+ * @modified by:Kaitlin Saqui :991723734 date 11th August,2023.
  */
 public class BlackjackGame extends Game
 {
