@@ -6,7 +6,7 @@ package ca.sheridancollege.project;
 
 /**
  *
- * @author 13435
+ * @author by:ManpreetKaur:991680973 date 5th August,2023
  */
 public enum Suit
 {
