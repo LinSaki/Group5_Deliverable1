@@ -14,14 +14,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author by:ManpreetKaur:991680973 date 5th August,2023
- * @modified by:Kaitlin Saqui :991723734 date 11th August,2023.
+ * @author 13435
+ * @modified by:ManpreetKaur:991680973 date 5th August,2023.
  */
 public class BlackjackGame extends Game
 {
     
     final int BLACKJACK_VALUE=21;
-    final int DEALER_MIN_VALUE=17;
+    final int DEALER_MIN_VALUE=16;
     ArrayList<HandCard> deck = new ArrayList<>();
     
     
@@ -32,7 +32,7 @@ public class BlackjackGame extends Game
       initializeDeck();
     }
     
-     /**
+    /**
      * main method
      * @param args
      */   
@@ -45,14 +45,16 @@ public class BlackjackGame extends Game
         do
         {
         game.play();
+        do
+        {
         System.out.println("Do you want to play Blackjack Game again");
         System.out.println("Type y to continue and n to end the game");
         c = sc.next();
+        }while( !(c.equals( "y") || c.equals( "Y") || c.equals( "n")||c.equals( "N")));
             switch (c) {
                 case "y":
                 case "Y":
                     redFlag = true;
-                    
                     break;
                 case "n":
                 case "N":
@@ -62,7 +64,8 @@ public class BlackjackGame extends Game
             }
         }while(redFlag);
     }
-    
+
+
     private void initializeDeck() 
     {
         for (Suit suit : Suit.values()) 
@@ -81,11 +84,15 @@ public class BlackjackGame extends Game
     @Override
     public void play()
     {
-        //Clear the list of platyers at the start of a new game:
+        
+       //Clear the list of platyers at the start of a new game:
         getPlayers().clear();
         try {
+            
             System.out.println();
-            System.out.println(getName() + "\n");
+            System.out.println(getName()+ "\n");
+            
+            
             Scanner sc = new Scanner (System.in);
             int numberOfPlayers=0;
             boolean flag;
@@ -130,6 +137,7 @@ public class BlackjackGame extends Game
                     {
                         redFlag=true;
                         System.out.println("Error: " +ex);
+                        sc.nextLine();
                         
                     }
                 }while(redFlag);
@@ -154,14 +162,17 @@ public class BlackjackGame extends Game
             {
                 printCardsInHand(player );
             }
+            
             dealerInitialCards();
             System.out.println("");
             
             if (hasEnoughPlayers() == true) {
                 checkForPlayers();
             }
-            
         }
+            
+         
+        
         catch (IOException ex) 
         {
             Logger.getLogger(BlackjackGame.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,11 +201,10 @@ public class BlackjackGame extends Game
     
     /**
      *Method to print the cards in the player's hand
-     * Modified: whenever the player's hand is shown, also show the value of their hand
      * @param name
-     * @throws java.io.IOException
      */    
-    public void printCardsInHand(BlackjackPlayer name ) throws IOException
+    public void printCardsInHand(BlackjackPlayer name )throws IOException
+
     {
          System.out.println(name.getName() + " Hand Cards : ");
           for(HandCard card : name.getHand())
@@ -222,19 +232,20 @@ public class BlackjackGame extends Game
                     
                     System.out.println(player.getName() + " BUSTS and loses the bet. Done for this Game!");
                     System.out.println(player.getName() + " total amount becomes: " + player.getBet() );
-                    System.out.println();
+                    System.out.println(); 
                     return -1;
                 }
                 else if (player.getHandValue() == 21)
                 {
                     System.out.println(player.getName() + " HAS BLACKJACK! Wins one and a half times the bet. Done for this Game!");
-                    player.setBet((int) (1.5 * player.getBet()) );
+                    player.setBet((int) (1.5 * player.getBet()));
                     System.out.println(player.getName() + " total amount becomes: " + player.getBet());
                      System.out.println("");
                     return -1;
                 }
-                else if (!player.getName().equals("Dealer")) {
-                    player.play();
+                else
+                {
+                    player.play(this);
                 }
             }
             catch (IOException ex)
@@ -248,9 +259,8 @@ public class BlackjackGame extends Game
     
     public void checkForPlayers() throws IOException {
     ArrayList<BlackjackPlayer> players = getPlayers(); // Copy the list to a local variable
-    ArrayList<BlackjackPlayer> playersToRemove = new ArrayList<>(); //keep track of players needed to be removed
     int numPlayers = players.size();
-    
+
     for (int i = 0; i < numPlayers; i++) 
     {
         BlackjackPlayer player = players.get(i);
@@ -266,11 +276,10 @@ public class BlackjackGame extends Game
         }
 
         if (value == -1) {
-            playersToRemove.add(player);
+            players.remove(i);
         }
     }
-    // Remove the players marked for removal
-    players.removeAll(playersToRemove);
+    setPlayers(players); // set the players to the final list.
 }
     
     /**
@@ -304,67 +313,76 @@ public class BlackjackGame extends Game
         if (dealer != null) 
         {
             printCardsInHand(dealer);
-            int handValue = dealer.getHandValue();
-            
-            // Keep having the dealer pull cards until hand is 17 or above
+            int handValue;
+            handValue = dealer.getHandValue();
+            // Keep having the dealer pull cards until hand is 16 or above
             while (isDealerBust(handValue) == -1) {
-                System.out.println("Dealer handValue is equal to or less than 17. Dealer picks up a card...");
+                System.out.println("Dealer handValue is equal to or less than 16. Dealer picks up a card...");
                 dealCard(dealer);
                 printCardsInHand(dealer);
                 handValue = dealer.getHandValue();
             }
+
            
             switch (isDealerBust(handValue))
             {
                 case 1:
-                    System.out.println("The dealer's hand value is: " +handValue);
-                    System.out.println("Every player with hand value higher than the dealer's, wins twice their bet!");
-                    System.out.println("Others loses the bet");
+                    System.out.println("The dealr's hand value is: " +handValue);
+                    System.out.println("Every player with hand value higher than the dealer's, wins the twice their bet!");
+                    System.out.println("Others losses the bet");
                     System.out.println("");
                     for (BlackjackPlayer player : getPlayers())
                     {
                         if ((!(player.getName().equals("Dealer")))&& (!(isBust(player.getHandValue()))) )  {
-                            if(player.getHandValue() > handValue && (!(declareWinner(player)==-1)) ) 
+                            if(player.getHandValue() > handValue ) 
                             {
                                 System.out.println(player.getName()+ " has hand Value greater than the dealer's hand value.So wins twice their bet!\n");
                                 player.setBet(player.getBet()*2);
-
+                               
                             } 
-                             else if (player.getHandValue() == handValue) {
+
+                        
+                             else if (player.getHandValue() == handValue) 
+                             {
                                 System.out.println(player.getName() + " has the same hand value as the dealer. Gets back their bet.\n");
                                 player.setBet(player.getBet());
-                            } else if (player.getHandValue() < handValue && (!(declareWinner(player)==-1))) {
+                                
+                            }
+                             else {
                                 System.out.println(player.getName() + " has hand Value less than the dealer's hand value. Loses their bet!\n");
                                 player.setBet(0);
+                                
                             }
                         }
                     }
+
                     break;
                 case 0:
-                     System.out.println("Dealer Busts every player in the game wins twice their bet.\n");
+                     System.out.println("Dealer Busts every player in the game wins twice their bet.");
                     for (BlackjackPlayer player : getPlayers())
                     {
-                        if ((!(declareWinner(player)==-1) && (!(player.getName().equals("Dealer")))) ){
-                            player.setBet(player.getBet()*2);
-                        }
+                        player.setBet(player.getBet()*2);
                     }   
                     break;
-//                case -1:
-//                    System.out.println("Dealer handValue is equal to  or less than 16. Dealer picks up a card...");
-//                    
-//                        dealCard(dealer);
-//                   
-//                    dealerTurn();
-//                break;
+                case -1:
+                    System.out.println("Dealer handValue is equal to  or less than 16.");
+                    
+                        dealCard(dealer);
+                   
+                    dealerTurn();
+                break;
             }//ends switch case
-            for (BlackjackPlayer player : getPlayers()){
+            
+            System.out.println("");
+            ArrayList<BlackjackPlayer> players = getPlayers();
+           for (int i=0; i < players.size(); i++ ){
             //Print every players hand except the Dealer
-                if(!(player.getName().equals("Dealer")) ){
-                    System.out.println(player.getName()+ " balance becomes: " + player.getBet());
-                    System.out.println("");
+                if(!(players.get(i).getName().equals("Dealer")) ){
+                    System.out.println(players.get(i).getName()+ " balance becomes: " + players.get(i).getBet());
+                    
                 }
             }
-                    
+           System.out.println("");                    
         }
     }
 
@@ -383,7 +401,7 @@ public class BlackjackGame extends Game
         {
            return 0; 
         }
-        else if(handValue >= DEALER_MIN_VALUE)
+        else if(handValue > DEALER_MIN_VALUE)
         {
           return 1;  
         }
@@ -427,3 +445,6 @@ public class BlackjackGame extends Game
         }
     }
 }
+
+     
+    
