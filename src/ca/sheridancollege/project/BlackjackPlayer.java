@@ -20,6 +20,7 @@ public class BlackjackPlayer extends Player
 {
    private ArrayList<HandCard> hand;
    private double bet;
+   private double playerMoney=0; //keeps track of how much the player takes home at the end of a game
    
    public BlackjackPlayer(String name, double bet)
    {
@@ -50,6 +51,21 @@ public class BlackjackPlayer extends Player
         this.bet = bet;
     }
 
+    /**
+     * Get the amount of money the player gets to take home
+     * @return 
+     */
+    public double getPlayerMoney(){
+        return playerMoney;
+    }
+    
+    /**
+     * Set the amount of money the player gets to take amount
+     * @param amountWon 
+     */
+    public void setPlayerMoney(double amountWon){
+        this.playerMoney = amountWon;
+    }
     
     public int getHandValue()throws IOException
     {
