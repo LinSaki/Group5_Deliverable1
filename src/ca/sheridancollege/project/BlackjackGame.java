@@ -37,12 +37,12 @@ public class BlackjackGame extends Game
      */   
     public static void main(String[] args)
     {
-        BlackjackGame game = new BlackjackGame();
         Scanner sc = new Scanner (System.in);
         boolean redFlag = false;
         String c="";
         do
         {
+        BlackjackGame game = new BlackjackGame();
         game.play();
         do
         {
@@ -237,7 +237,7 @@ public class BlackjackGame extends Game
                 else if (player.getHandValue() == 21)
                 {
                     System.out.println(player.getName() + " HAS BLACKJACK! Wins one and a half times the bet. Done for this Game!");
-                    player.setBet((1.5 * player.getBet()) + player.getPlayerMoney());
+                    player.setPlayerMoney((1.5 * player.getBet()) + player.getPlayerMoney());
                     System.out.println(player.getName() + " total amount becomes: " + player.getPlayerMoney());
                      System.out.println("");
                     return -1;
@@ -335,9 +335,9 @@ public class BlackjackGame extends Game
                         if ((!(player.getName().equals("Dealer")))&& (!(isBust(player.getHandValue()))) )  {
                             if(player.getHandValue() > handValue ) 
                             {
-                                System.out.println(player.getName()+ " has hand Value greater than the dealer's hand value.So wins twice their bet!\n");
                                 // Check if a player won Blackjack, they should not win additional winnings if dealer doesnt have a hand greater than players with 21
                                 if (!(player.getHandValue() == 21)) {
+                                    System.out.println(player.getName()+ " has hand Value greater than the dealer's hand value.So wins twice their bet!\n");
                                     player.setPlayerMoney((player.getBet()*2)); 
                                 }
                             } 
