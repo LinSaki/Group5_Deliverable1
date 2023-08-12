@@ -13,11 +13,12 @@ import java.util.ArrayList;
  *
  * @author dancye
  * @author Paul Bonenfant Jan 2020
+ * @modified by:ManpreetKaur:991680973 date 5th August,2023.
  */
 public abstract class Game {
 
     private final String name;//the title of the game
-    private ArrayList<Player> players;// the players of the game
+    private ArrayList<BlackjackPlayer> players;// the players of the game
 
     public Game(String name) {
         this.name = name;
@@ -34,14 +35,14 @@ public abstract class Game {
     /**
      * @return the players of this game
      */
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<BlackjackPlayer> getPlayers() {
         return players;
     }
 
     /**
      * @param players the players of this game
      */
-    public void setPlayers(ArrayList<Player> players) {
+    public void setPlayers(ArrayList<BlackjackPlayer> players) {
         this.players = players;
     }
 
@@ -52,7 +53,9 @@ public abstract class Game {
 
     /**
      * When the game is over, use this method to declare and display a winning player.
+     * @param player
+     * @return 
      */
-    public abstract void declareWinner();
+    public abstract int declareWinner(BlackjackPlayer player);
 
 }//end class
