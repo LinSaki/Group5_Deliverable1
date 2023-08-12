@@ -21,7 +21,7 @@ public class BlackjackGame extends Game
 {
     
     final int BLACKJACK_VALUE=21;
-    final int DEALER_MIN_VALUE=16;
+    final int DEALER_MIN_VALUE=17;
     ArrayList<HandCard> deck = new ArrayList<>();
     
     
@@ -106,7 +106,7 @@ public class BlackjackGame extends Game
                 }
                 catch(Exception ex)
                     {
-                        redFlag=true;
+                        flag=true;
                         System.out.println("Error: " +ex);
                         
                     }
@@ -401,7 +401,7 @@ public class BlackjackGame extends Game
         {
            return 0; 
         }
-        else if(handValue > DEALER_MIN_VALUE)
+        else if(handValue >= DEALER_MIN_VALUE)
         {
           return 1;  
         }
