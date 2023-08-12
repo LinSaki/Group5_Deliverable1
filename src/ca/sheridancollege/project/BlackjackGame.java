@@ -133,11 +133,11 @@ public class BlackjackGame extends Game
                         getPlayers().add(player);
                         
                     }
-                    catch(InputMismatchException ex)
+                    catch(Exception ex)
                     {
                         redFlag=true;
                         System.out.println("Error: " +ex);
-                        sc.nextLine();
+                      
                         
                     }
                 }while(redFlag);
