@@ -105,11 +105,11 @@ public class BlackjackGame extends Game
                     numberOfPlayers = sc.nextInt();
                 }
                 catch(Exception ex)
-                {
-                    flag=true;
-                    System.out.println("Error: " +ex);
-                    sc.nextLine();                    
-                }
+                    {
+                        redFlag=true;
+                        System.out.println("Error: " +ex);
+                        
+                    }
             }while(flag);
             
             
