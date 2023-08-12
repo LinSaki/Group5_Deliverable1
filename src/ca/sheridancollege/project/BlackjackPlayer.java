@@ -5,15 +5,16 @@
 package ca.sheridancollege.project;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 /**
  *
- * @author by:ManpreetKaur:991680973 date 5th August,2023
- * @modified by:Kaitlin Saqui :991723734 date 11th August,2023.
+ * @author 13435
+ * @modified by:ManpreetKaur:991680973 date 5th August,2023.
  */
 public class BlackjackPlayer extends Player
 {
@@ -50,13 +51,8 @@ public class BlackjackPlayer extends Player
     }
 
     
-     /**
-     * Method used to calculate the value of cards a Player has in their hand
-     * Modified: automatically make the value of Ace 1 or 11 depending if the value of the hand is under/more than 10.
-     * @return value of cards in Hand
-     * @throws java.io.IOException
-     */
-    public int getHandValue()throws IOException{
+    public int getHandValue()throws IOException
+    {
         int totalValue = 0;
         int aceCount = 0; // cannot have  more than 4 aces in a hand
         for(HandCard aCard: hand){
@@ -100,16 +96,15 @@ public class BlackjackPlayer extends Player
         }
         return totalValue;
     }
-  
-    @Override
-    public void play()
+    
+    public void play(BlackjackGame game)throws IOException
     {
        boolean redFlag=false;
        do
        {
            try {
                System.out.println(getName() + " turn: ");
-               BlackjackGame game = new BlackjackGame();
+               
                game.printCardsInHand(this);
                System.out.println(getName()+ " wants to hit or stand:") ;
                System.out.println("Enter H to hit and S to stand") ;
@@ -136,28 +131,30 @@ public class BlackjackPlayer extends Player
                        System.out.println("");
                        redFlag=false;
                        break;
-                       
+
                    default:
                        System.out.println("Invalid choice. Choose again. Please try again");
                        System.out.println("");
                        redFlag= true;
                        break;
                }
-           } catch (IOException ex) {
+           } 
+           catch (Exception ex) 
+           {
                Logger.getLogger(BlackjackPlayer.class.getName()).log(Level.SEVERE, null, ex);
            }
        }while(redFlag);
-       
+
     }
-    
-      /**
+   
+    /**
      * Method used to empty hand
      * @param cards
      */
     public void emptyHand(GroupOfCards cards){
         hand.clear();
     }
-   
+
 
      @Override
     public String toString()
