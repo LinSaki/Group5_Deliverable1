@@ -13,8 +13,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 13435
- * @modified by:ManpreetKaur:991680973 date 5th August,2023.
+ * @author by:ManpreetKaur:991680973 date 5th August,2023.
+ * @modified by: Kaitlin Saqui : 991723734 : date August 11th, 2023.
  */
 public class BlackjackGame extends Game
 {
@@ -64,7 +64,9 @@ public class BlackjackGame extends Game
         }while(redFlag);
     }
 
-
+    /**
+     * method to create a deck of cards
+     */
     private void initializeDeck() 
     {
         for (Suit suit : Suit.values()) 
@@ -194,8 +196,6 @@ public class BlackjackGame extends Game
         }
      }
     
-    
-    
     /**
      *Method to print the cards in the player's hand
      * @param name
@@ -213,7 +213,7 @@ public class BlackjackGame extends Game
     }
      
     /**
-     *
+     * Method to determine if Player busts, wins Blackjack, or continues to play
      * @param player
      * @return 
      */
@@ -253,7 +253,10 @@ public class BlackjackGame extends Game
         }
   
     
-    
+    /**
+     * Method to check if there are enough players in the game
+     * @throws IOException 
+     */
     public void checkForPlayers() throws IOException {
     ArrayList<BlackjackPlayer> players = getPlayers(); // Copy the list to a local variable
     int numPlayers = players.size();
@@ -291,6 +294,10 @@ public class BlackjackGame extends Game
       System.out.println("Dealer's second Card is hidden.");   
     }
     
+    /**
+     * Method to let Dealer pick up cards depending on set conditions and if players won based on the dealer's conditions
+     * @throws IOException 
+     */
     public void dealerTurn() throws IOException
     {
         BlackjackPlayer dealer = null;

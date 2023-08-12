@@ -61,7 +61,10 @@ public class GroupOfCards {
         this.size = size;
     }
     
-    
+    /**
+     * Represents the group of cards as a string
+     * @return string representation of the cards
+     */
     public ArrayList<String> String()
     {
         ArrayList <String> stringRepresentationOfCards= new ArrayList<>();

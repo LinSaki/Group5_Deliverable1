@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 /**
  *
- * @author 13435
- * @modified by:ManpreetKaur:991680973 date 5th August,2023.
+ * @author by:ManpreetKaur:991680973 date 5th August,2023.
+ * @modified by:Kaitlin Saqui : 991723734 : date 11th August,2023.
  */
 public class BlackjackPlayer extends Player
 {
@@ -22,6 +22,11 @@ public class BlackjackPlayer extends Player
    private double bet;
    private double playerMoney=0; //keeps track of how much the player takes home at the end of a game
    
+   /**
+    * 2-arg constructor of Blackjack Player
+    * @param name
+    * @param bet 
+    */
    public BlackjackPlayer(String name, double bet)
    {
        super(name);
@@ -30,6 +35,7 @@ public class BlackjackPlayer extends Player
    }
 
     /**
+     * gives the cards in a players hand
      * @return the hand
      */
     public ArrayList<HandCard> getHand()
@@ -38,6 +44,7 @@ public class BlackjackPlayer extends Player
     }
     
      /**
+     * returns players original bet
      * @return the bet
      */
     public double getBet() {
@@ -45,7 +52,8 @@ public class BlackjackPlayer extends Player
     }
 
     /**
-     * @param bet the bet to set
+     * the bet to set
+     * @param bet
      */
     public void setBet(double bet) {
         this.bet = bet;
@@ -67,6 +75,11 @@ public class BlackjackPlayer extends Player
         this.playerMoney = amountWon;
     }
     
+    /**
+     * calculates the total value of the player's hand
+     * @return value of cards in a player's hand
+     * @throws IOException 
+     */
     public int getHandValue()throws IOException
     {
         int totalValue = 0;
@@ -113,6 +126,11 @@ public class BlackjackPlayer extends Player
         return totalValue;
     }
     
+    /**
+     * method to let the player choose to Hit or Stand until they Bust, win Blackjack or Stand
+     * @param game
+     * @throws IOException 
+     */
     public void play(BlackjackGame game)throws IOException
     {
        boolean redFlag=false;
@@ -164,14 +182,17 @@ public class BlackjackPlayer extends Player
     }
    
     /**
-     * Method used to empty hand
+     * Method used to empty hand of the player
      * @param cards
      */
     public void emptyHand(GroupOfCards cards){
         hand.clear();
     }
 
-
+    /**
+     * Override the toString from parent class Player()
+     * @return player details
+     */
      @Override
     public String toString()
     {

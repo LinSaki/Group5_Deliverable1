@@ -7,6 +7,7 @@ package ca.sheridancollege.project;
 /**
  *
  * @author by:ManpreetKaur:991680973 date 5th August,2023.
+ * @modified by: Kaitlin Saqui : 991723734 : date August 11th, 2023
  */
 public class HandCard extends Card
 {
@@ -19,7 +20,7 @@ public class HandCard extends Card
           this.suit = suit;
       }
     /**
-     * @return the value
+     * @return the value of the card
      */
     public Value getValue() {
         return value;
@@ -48,7 +49,10 @@ public class HandCard extends Card
     
     //public HandCard getHandCard()
     
-
+    /**
+     * Override the toString() method from parent class Card() to return the card's value and suit
+     * @return card as a string
+     */
      @Override
       public String toString()
       {
