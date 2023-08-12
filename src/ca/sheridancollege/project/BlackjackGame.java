@@ -7,7 +7,6 @@ package ca.sheridancollege.project;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -228,18 +227,18 @@ public class BlackjackGame extends Game
             { 
                 if (isBust(player.getHandValue()))
                 {
-                    player.setBet(0);
+                    player.setPlayerMoney(0);
                     
                     System.out.println(player.getName() + " BUSTS and loses the bet. Done for this Game!");
-                    System.out.println(player.getName() + " total amount becomes: " + player.getBet() );
+                    System.out.println(player.getName() + " total amount becomes: " + player.getPlayerMoney() );
                     System.out.println(); 
                     return -1;
                 }
                 else if (player.getHandValue() == 21)
                 {
                     System.out.println(player.getName() + " HAS BLACKJACK! Wins one and a half times the bet. Done for this Game!");
-                    player.setBet((int) (1.5 * player.getBet()));
-                    System.out.println(player.getName() + " total amount becomes: " + player.getBet());
+                    player.setBet((1.5 * player.getBet()) + player.getPlayerMoney());
+                    System.out.println(player.getName() + " total amount becomes: " + player.getPlayerMoney());
                      System.out.println("");
                     return -1;
                 }
@@ -337,21 +336,20 @@ public class BlackjackGame extends Game
                             if(player.getHandValue() > handValue ) 
                             {
                                 System.out.println(player.getName()+ " has hand Value greater than the dealer's hand value.So wins twice their bet!\n");
-                                player.setBet(player.getBet()*2);
-                               
+                                // Check if a player won Blackjack, they should not win additional winnings if dealer doesnt have a hand greater than players with 21
+                                if (!(player.getHandValue() == 21)) {
+                                    player.setPlayerMoney((player.getBet()*2)); 
+                                }
                             } 
-
-                        
                              else if (player.getHandValue() == handValue) 
                              {
                                 System.out.println(player.getName() + " has the same hand value as the dealer. Gets back their bet.\n");
-                                player.setBet(player.getBet());
+                                player.setPlayerMoney(player.getBet());
                                 
                             }
                              else {
                                 System.out.println(player.getName() + " has hand Value less than the dealer's hand value. Loses their bet!\n");
-                                player.setBet(0);
-                                
+                                player.setPlayerMoney(0);
                             }
                         }
                     }
@@ -361,7 +359,15 @@ public class BlackjackGame extends Game
                      System.out.println("Dealer Busts every player in the game wins twice their bet.");
                     for (BlackjackPlayer player : getPlayers())
                     {
-                        player.setBet(player.getBet()*2);
+                        // Check if player won Blackjack and has additional winnings, players should receive twice their bet if the dealer busts
+                        if (player.getHandValue() == 21) {
+                            player.setPlayerMoney(player.getPlayerMoney() + ((player.getBet() * 2)- player.getBet()));
+                        } else if (isBust(player.getHandValue())){
+                            player.setPlayerMoney(0);
+                        }
+                        else{
+                            player.setPlayerMoney((player.getBet()*2)); 
+                        }
                     }   
                     break;
                 case -1:
@@ -375,10 +381,10 @@ public class BlackjackGame extends Game
             
             System.out.println("");
             ArrayList<BlackjackPlayer> players = getPlayers();
-           for (int i=0; i < players.size(); i++ ){
+            for (int i=0; i < players.size(); i++ ){
             //Print every players hand except the Dealer
                 if(!(players.get(i).getName().equals("Dealer")) ){
-                    System.out.println(players.get(i).getName()+ " balance becomes: " + players.get(i).getBet());
+                    System.out.println(players.get(i).getName()+ " balance becomes: " + players.get(i).getPlayerMoney());
                     
                 }
             }
