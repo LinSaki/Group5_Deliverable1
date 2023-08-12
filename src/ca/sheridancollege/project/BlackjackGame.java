@@ -383,7 +383,7 @@ public class BlackjackGame extends Game
         {
            return 0; 
         }
-        else if(handValue > DEALER_MIN_VALUE)
+        else if(handValue >= DEALER_MIN_VALUE)
         {
           return 1;  
         }
